@@ -1,5 +1,4 @@
 /.idea
-mautic.php
 lib_mautic/src/vendor/mautic/api-library/composer.json
 lib_mautic/src/vendor/mautic/api-library/composer.lock
 lib_mautic/src/vendor/mautic/api-library/phpunit.xml.dist
@@ -16,3 +15,5 @@ lib_mautic/src/vendor/autoload.php
 lib_mautic/src/vendor/psr/log/LICENSE
 lib_mautic/src/vendor/psr/log/README.md
 plg_system_mautic/resources/*
+**/vendor
+node_modules/

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="4.0" type="package" method="upgrade">
-	<packagename>mauticforj4</packagename>
+	<packagename>mauticforjoomla</packagename>
 	<packager>Mautic</packager>
-	<name>MauticForJoomla4</name>
+	<name>MauticForJoomla</name>
 	<author>Mautic</author>
 	<creationDate>2023-04</creationDate>
-	<copyright>(C) 2023 Mautic. All rights reserved.</copyright>
+	<copyright>(C) 2023 - 2024 Mautic. All rights reserved.</copyright>
 	<license>GNU General Public License version 3 or later; see LICENSE.txt</license>
 	<authorEmail>extensions@mautic.org</authorEmail>
 	<authorUrl>www.mautic.org</authorUrl>
-	<version>2.0.0</version>
+	<version>2.0.1</version>
 	<files>
 		<file id="lib_mautic" type="library">lib_mautic.zip</file>
 		<file id="plg_system_mautic" type="plugin" group="system">plg_system_mautic.zip</file>

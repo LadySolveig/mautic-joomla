@@ -15,7 +15,7 @@ use Joomla\CMS\Installer\InstallerScript;
 use Joomla\CMS\Installer\InstallerAdapter;
 use Joomla\CMS\Language\Text;
 
-class Pkg_MauticForJ4InstallerScript extends InstallerScript
+class Pkg_MauticForJoomlaInstallerScript extends InstallerScript
 {
 	protected $minimumPhp    = '7.4.0';
 	protected $minimumJoomla = '4.0.0';
@@ -32,7 +32,7 @@ class Pkg_MauticForJ4InstallerScript extends InstallerScript
 	 */
 	public function postflight($type, $parent)
 	{
-		if ($parent->getElement() != 'pkg_mauticforj4') {
+		if ($parent->getElement() != 'pkg_mauticforjoomla') {
 			return true;
 		}
 

@@ -1,9 +1,9 @@
 {
 	"packages": [
 		{
-			"name": "MauticForJ4",
-			"originalManifestFileName": "pkg_mauticforj4",
-			"substituteManifestFileName": "pkg_mauticforj4",
+			"name": "MauticForJoomla",
+			"originalManifestFileName": "pkg_mauticforjoomla",
+			"substituteManifestFileName": "pkg_mauticforjoomla",
 			"extensions": [
 				{
 					"name": "lib_mautic",

@@ -9,7 +9,7 @@
 	<authorUrl>www.mautic.org</authorUrl>
 	<version>2.0.0</version>
 	<description>PLG_SYSTEM_MAUTIC_XML_DESCRIPTION</description>
-	<namespace path="src">Joomla\Plugin\System\Mautic</namespace>
+	<namespace path="src">Mautic\Plugin\System\Mautic</namespace>
     <scriptfile>script.php</scriptfile>
 	<files>
 		<filename plugin="mautic">mautic.php</filename>

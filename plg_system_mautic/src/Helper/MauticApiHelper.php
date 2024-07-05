@@ -8,7 +8,7 @@
  * @link	    http://www.mautic.org
  */
 
- namespace Joomla\Plugin\System\Mautic\Helper;
+ namespace Mautic\Plugin\System\Mautic\Helper;
 
  // phpcs:disable PSR1.Files.SideEffects
 defined('_JEXEC') or die('Restricted access');
@@ -19,7 +19,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Log\Log;
 use Joomla\CMS\Table\Table;
 use Joomla\CMS\Uri\Uri;
-use Joomla\Registry\Registry;
+use Joomla\Registry\Registry; 
 
 /**
  * Helper class which initialize Mautic API library with needed data.

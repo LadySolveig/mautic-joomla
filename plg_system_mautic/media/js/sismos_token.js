@@ -3,7 +3,7 @@
 
 	(function () {
 		/* Mautic - Martina Scholz */
-		/* (C) 2023 Mautic, Martina Scholz, SimplySmart-IT <https://simplysmart-it.de> */
+		/* (C) 2023 - 2024 Mautic, Martina Scholz, SimplySmart-IT <https://simplysmart-it.de> */
 
 
 		function sismos_token() {	
@@ -43,12 +43,11 @@
 				btnClearToken.addEventListener('click', clearToken);
 			}		
 
-			document.removeEventListener("DOMContentLoaded", sismos_token);
+			document.removeEventListener('DOMContentLoaded', sismos_token);
 		}
 
-		document.addEventListener("DOMContentLoaded", sismos_token);
+		document.addEventListener('DOMContentLoaded', sismos_token);
 
 	})();
 
 })();
-//# sourceMappingURL=sismos_token.js.map

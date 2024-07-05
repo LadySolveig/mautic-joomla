@@ -5,13 +5,13 @@
  * @subpackage  System.Token
  *
  * @author		Mautic, Martina Scholz
- * @copyright   (C) 2023 Mautic, Martina Scholz>
+ * @copyright   (C) 2023 Mautic, Martina Scholz
  * @license     GNU General Public License version 3 or later; see LICENSE.txt
 
  * @phpcs:disable PSR1.Classes.ClassDeclaration.MissingNamespace
  */
 
-namespace Joomla\Plugin\System\Mautic\Field;
+namespace Mautic\Plugin\System\Mautic\Field;
 
 use DateTime;
 use Joomla\CMS\Date\Date;
