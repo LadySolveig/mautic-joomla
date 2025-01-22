@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package    MauticForJoomla4
  *
@@ -8,43 +9,43 @@
  * @link		http://www.mautic.org
  */
 
-defined('_JEXEC') or die();
+\defined('_JEXEC') or die();
 
 use Joomla\CMS\Factory;
-use Joomla\CMS\Installer\InstallerScript;
 use Joomla\CMS\Installer\InstallerAdapter;
+use Joomla\CMS\Installer\InstallerScript;
 use Joomla\CMS\Language\Text;
 
 class Pkg_MauticForJoomlaInstallerScript extends InstallerScript
 {
-	protected $minimumPhp    = '8.1.0';
-	protected $minimumJoomla = '5.0.0';
+    protected $minimumPhp    = '8.1.0';
+    protected $minimumJoomla = '5.0.0';
 
-	/**
-	 * Function to act prior to installation process begins
-	 *
-	 * @param   string              $type    The action being performed
-	 * @param   InstallerAdapter    $parent  The function calling this method
-	 *
-	 * @return  boolean
-	 *
-	 * @since   1.0.0
-	 */
-	public function postflight($type, $parent)
-	{
-		if ($parent->getElement() != 'pkg_mauticforjoomla') {
-			return true;
-		}
+    /**
+     * Function to act prior to installation process begins
+     *
+     * @param   string              $type    The action being performed
+     * @param   InstallerAdapter    $parent  The function calling this method
+     *
+     * @return  boolean
+     *
+     * @since   1.0.0
+     */
+    public function postflight($type, $parent)
+    {
+        if ($parent->getElement() != 'pkg_mauticforjoomla') {
+            return true;
+        }
 
-		if ($type != 'install' && $type != 'discover_install') {
-			return true;
-		}
+        if ($type != 'install' && $type != 'discover_install') {
+            return true;
+        }
 
-		$lang = Factory::getApplication()->getLanguage();
-		$lang->load('plg_system_mautic', JPATH_ADMINISTRATOR);
+        $lang = Factory::getApplication()->getLanguage();
+        $lang->load('plg_system_mautic', JPATH_ADMINISTRATOR);
 
-		Factory::getApplication()->enqueueMessage(Text::_('PLG_SYSTEM_MAUTIC_POSTINSTALL_MSG'));
+        Factory::getApplication()->enqueueMessage(Text::_('PLG_SYSTEM_MAUTIC_POSTINSTALL_MSG'));
 
-		return true;
-	}
+        return true;
+    }
 }

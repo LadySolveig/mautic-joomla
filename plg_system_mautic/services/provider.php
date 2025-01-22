@@ -9,18 +9,18 @@
  * @link        http://www.mautic.org
  */
 
- \defined('_JEXEC') or die;
+\defined('_JEXEC') or die;
 
- use Joomla\CMS\Extension\PluginInterface;
- use Joomla\CMS\Factory;
- use Joomla\CMS\Plugin\PluginHelper;
- use Joomla\Database\DatabaseInterface;
- use Joomla\DI\Container;
- use Joomla\DI\ServiceProviderInterface;
- use Joomla\Event\DispatcherInterface;
- use Mautic\Plugin\System\Mautic\Extension\Mautic;
+use Joomla\CMS\Extension\PluginInterface;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Plugin\PluginHelper;
+use Joomla\Database\DatabaseInterface;
+use Joomla\DI\Container;
+use Joomla\DI\ServiceProviderInterface;
+use Joomla\Event\DispatcherInterface;
+use Mautic\Plugin\System\Mautic\Extension\Mautic;
 
- return new class () implements ServiceProviderInterface {
+return new class () implements ServiceProviderInterface {
     /**
      * Registers the service provider with a DI container.
      *

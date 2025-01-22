@@ -1,19 +1,20 @@
 <?php
+
 /**
  * @package     Mautic-Joomla.Plugin
  * @subpackage  System.Mautic
  *
  * @author      Mautic
  * @copyright   Copyright (C) 2014 - 2023 Mautic All Rights Reserved.
- * @license	    http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
+ * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
  * @link        http://www.mautic.org
  */
 
- namespace Mautic\Plugin\System\Mautic\Extension;
+namespace Mautic\Plugin\System\Mautic\Extension;
 
 // no direct access
 // phpcs:disable PSR1.Files.SideEffects
-defined('_JEXEC') or die('Restricted access');
+\defined('_JEXEC') or die('Restricted access');
 // phpcs:enable PSR1.Files.SideEffects
 
 use Joomla\CMS\Application\CMSApplication;
@@ -24,7 +25,6 @@ use Joomla\CMS\Plugin\CMSPlugin;
 use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
-use Joomla\Database\DatabaseDriver;
 use Joomla\Event\DispatcherInterface;
 use Joomla\Plugin\System\Mautic\Helper\MauticApiHelper;
 use Joomla\Registry\Registry;
@@ -32,8 +32,8 @@ use Joomla\Utilities\ArrayHelper;
 
 /**
  *
- * @package		Mautic-Joomla.Plugin
- * @subpackage	System.Mautic
+ * @package     Mautic-Joomla.Plugin
+ * @subpackage  System.Mautic
  */
 final class Mautic extends CMSPlugin
 {
@@ -85,8 +85,7 @@ final class Mautic extends CMSPlugin
     public function __construct(
         DispatcherInterface $dispatcher,
         array $config
-    ) 
-    {
+    ) {
         parent::__construct($dispatcher, $config);
 
         // Define the logger.
@@ -96,14 +95,14 @@ final class Mautic extends CMSPlugin
     /**
      * This event is triggered before the framework creates the Head section of the Document.
      *
-     * @return	void
+     * @return  void
      *
      * @since   3.0.0
      */
     public function onBeforeCompileHead()
     {
         // Check to make sure we are loading an HTML view and it's site
-        if ($this->app->getDocument()->getType() !== 'html' || $this->app->getInput()->get('tmpl', '', 'cmd') === 'component' ||  !$this->app->isClient('site')) {
+        if ($this->app->getDocument()->getType() !== 'html' || $this->app->getInput()->get('tmpl', '', 'cmd') === 'component' || !$this->app->isClient('site')) {
             return;
         }
 
@@ -125,8 +124,8 @@ final class Mautic extends CMSPlugin
                 $attrs['firstname'] = $name[0];
             }
 
-            $count = count($name);
-            $lastNamePos = $count -1;
+            $count       = \count($name);
+            $lastNamePos = $count - 1;
 
             if ($lastNamePos !== 0 && isset($name[$lastNamePos])) {
                 $attrs['lastname'] = $name[$lastNamePos];
@@ -150,20 +149,22 @@ final class Mautic extends CMSPlugin
     /**
      * Insert form script to the content
      *
-     * @param	string	$context The context of the content being passed to the plugin.
-     * @param	object	$article The article object.  Note $article->text is also available
-     * @param	object	$params  The article params
-     * @param	integer	$page    The 'page' number
+     * @param   string  $context The context of the content being passed to the plugin.
+     * @param   object  $article The article object.  Note $article->text is also available
+     * @param   object  $params  The article params
+     * @param   integer $page    The 'page' number
      *
      * @return  void
      */
     public function onContentPrepare($context, &$article, &$params, $page = 0)
     {
         // Check to make sure we are loading an HTML view and there is a main component area and content is not being indexed
-        if ($this->app->getDocument()->getType() !== 'html'
+        if (
+            $this->app->getDocument()->getType() !== 'html'
             || $this->app->getInput()->get('tmpl', '', 'cmd') === 'component'
             || !$this->app->isClient('site')
-            || $context == 'com_finder.indexer') {
+            || $context == 'com_finder.indexer'
+        ) {
             return true;
         }
 
@@ -178,12 +179,12 @@ final class Mautic extends CMSPlugin
         preg_match_all($this->mauticRegex, $article->text, $matches, PREG_SET_ORDER);
 
         foreach ($matches as $match) {
-            $atts = $this->parseShortcodeAtts($match[3]);
-            $method = 'do' . ucfirst(strtolower($atts['type'])) . 'Shortcode';
+            $atts       = $this->parseShortcodeAtts($match[3]);
+            $method     = 'do' . ucfirst(strtolower($atts['type'])) . 'Shortcode';
             $newContent = '';
 
             if (method_exists($this, $method)) {
-                $newContent = call_user_func([$this, $method], $atts, $match[5]);
+                $newContent = \call_user_func([$this, $method], $atts, $match[5]);
             }
 
             $article->text = str_replace($match[0], $newContent, $article->text);
@@ -228,12 +229,12 @@ final class Mautic extends CMSPlugin
     public function doVideoShortcode($atts)
     {
         $video_type = '';
-        $atts = $this->filterAtts([
+        $atts       = $this->filterAtts([
             'gate-time' => 15,
-            'form-id' => '',
-            'src' => '',
-            'width' => 640,
-            'height' => 360
+            'form-id'   => '',
+            'src'       => '',
+            'width'     => 640,
+            'height'    => 360,
         ], $atts);
 
         if (empty($atts['src'])) {
@@ -304,8 +305,10 @@ final class Mautic extends CMSPlugin
         $newParams = new Registry($table->get('params'));
         $tokenData = $newParams->get('token', null);
 
-        if ($tokenData && (!isset($this->params) || ($this->params->get('public_key', '') !== $newParams->get('public_key', '')
-            || $this->params->get('private_key', '') !== $newParams->get('private_key', '')))) {
+        if (
+            $tokenData && (!isset($this->params) || ($this->params->get('public_key', '') !== $newParams->get('public_key', '')
+            || $this->params->get('private_key', '') !== $newParams->get('private_key', '')))
+        ) {
             $tokenData = ArrayHelper::fromObject($newParams->get('token', []));
             foreach ($tokenData as $key => &$data) {
                 $data = "";
@@ -334,7 +337,7 @@ final class Mautic extends CMSPlugin
             return;
         }
 
-        if (is_null($extension)) {
+        if (\is_null($extension)) {
             return;
         }
 
@@ -342,17 +345,19 @@ final class Mautic extends CMSPlugin
         if (Factory::getApplication()->getInput()->get('gentoken', null, 'int')) {
             $lang = $this->app->getLanguage();
             $lang->load('plg_system_mautic', JPATH_ADMINISTRATOR);
-            $isRoot	= $this->app->getIdentity()->authorise('core.admin');
+            $isRoot = $this->app->getIdentity()->authorise('core.admin');
             if ($isRoot) {
-                if (!array_key_exists('public_key', $extension['params']) || !$extension['params']['public_key'] ||
-                    !array_key_exists('secret_key', $extension['params']) || !$extension['params']['secret_key']) {
+                if (
+                    !\array_key_exists('public_key', $extension['params']) || !$extension['params']['public_key'] ||
+                    !\array_key_exists('secret_key', $extension['params']) || !$extension['params']['secret_key']
+                ) {
                     $this->app->enqueueMessage(Text::_('PLG_SYSTEM_MAUTIC_AUTH_MISSING_DATA_ERROR'), 'warning');
                     $this->log(Text::_('PLG_SYSTEM_MAUTIC_AUTH_MISSING_DATA_ERROR'), Log::ERROR);
                     return;
                 }
 
                 $this->apiHelper = new MauticApiHelper($table);
-                
+
                 $this->authorize(true); // TODO
             } else {
                 $this->app->enqueueMessage(Text::_('PLG_SYSTEM_MAUTIC_ERROR_ONLY_ADMIN_CAN_AUTHORIZE'), 'warning');
@@ -371,7 +376,7 @@ final class Mautic extends CMSPlugin
         if (!Factory::getApplication()->isClient('administrator')) {
             return;
         }
-        $isRoot	= Factory::getApplication()->getIdentity()->authorise('core.admin');
+        $isRoot = Factory::getApplication()->getIdentity()->authorise('core.admin');
 
         if (!Factory::getApplication()->getUserState('mauticapi.data.oauth_gentoken', 0)) {
             return;
@@ -379,11 +384,13 @@ final class Mautic extends CMSPlugin
 
         if ($isRoot) {
             $input = Factory::getApplication()->getInput();
-            if (($input->get('oauth_token') && $input->get('oauth_verifier'))
-            || ($input->get('state') && $input->get('code'))) {
-                $this->authorize($input->get('reauthorize', false, 'BOOLEAN')); // TODO 
+            if (
+                ($input->get('oauth_token') && $input->get('oauth_verifier'))
+                || ($input->get('state') && $input->get('code'))
+            ) {
+                $this->authorize($input->get('reauthorize', false, 'BOOLEAN')); // TODO
                 $plugin = PluginHelper::getPlugin('system', 'mautic');
-                $url = Uri::root() . 'administrator/index.php?option=com_plugins&task=plugin.edit&extension_id=' . $plugin->id;
+                $url    = Uri::root() . 'administrator/index.php?option=com_plugins&task=plugin.edit&extension_id=' . $plugin->id;
                 Factory::getApplication()->redirect($url, (int) 303);
             }
         } else {
@@ -417,11 +424,11 @@ final class Mautic extends CMSPlugin
      */
     public function authorize($reauthorize = false)
     {
-        $apiHelper		= $this->getMauticApiHelper();
-        $auth			= $apiHelper->getMauticAuth($reauthorize);
-        $lang			= $this->app->getLanguage();
+        $apiHelper      = $this->getMauticApiHelper();
+        $auth           = $apiHelper->getMauticAuth($reauthorize);
+        $lang           = $this->app->getLanguage();
         $table          = $apiHelper->getTable();
-        
+
         $lang->load('plg_system_mautic', JPATH_ADMINISTRATOR);
 
         $this->log('Authorize method called.', Log::INFO);
@@ -456,10 +463,10 @@ final class Mautic extends CMSPlugin
      * For debug is better to switch function to:
      * public function onUserBeforeSave($success, $isNew, $user)
      *
-     * @param array 	$user 		array with user information
-     * @param boolean 	$isNew 		whether the user is new
-     * @param boolean 	$success 	whether the user was saved successfully
-     * @param string 	$msg 		error message
+     * @param array     $user       array with user information
+     * @param boolean   $isNew      whether the user is new
+     * @param boolean   $success    whether the user was saved successfully
+     * @param string    $msg        error message
      */
     public function onUserAfterSave($user, $isNew, $success, $msg = '')
     {
@@ -473,9 +480,9 @@ final class Mautic extends CMSPlugin
 
             try {
                 $this->apiHelper = $this->getMauticApiHelper();
-                $mauticBaseUrl	= $this->apiHelper->getMauticBaseUrl();
+                $mauticBaseUrl   = $this->apiHelper->getMauticBaseUrl();
                 /** @var \Mautic\Auth\OAuth $auth */
-                $auth			= $this->apiHelper->getMauticAuth();
+                $auth           = $this->apiHelper->getMauticAuth();
                 // Check and refresh if needed
                 $authIsValid    = $auth->validateAccessToken();
                 if ($authIsValid && $auth->accessTokenUpdated()) {
@@ -483,15 +490,15 @@ final class Mautic extends CMSPlugin
                 }
                 /** @var \Mautic\Api\Contacts $contactsapi */
                 $mauticApi      = new \Mautic\MauticApi();
-                $contactsapi	= $mauticApi->newApi("contacts", $auth, $mauticBaseUrl . '/api/');
-                $ip				= $this->getUserIP();
-                $name			= explode(' ', $user['name']);
+                $contactsapi    = $mauticApi->newApi("contacts", $auth, $mauticBaseUrl . '/api/');
+                $ip             = $this->getUserIP();
+                $name           = explode(' ', $user['name']);
 
                 $mauticUser = [
                     'ipAddress' => $ip,
                     'firstname' => isset($name[0]) ? $name[0] : '',
-                    'lastname'	=> isset($name[1]) ? $name[1] : '',
-                    'email'		=> $user['email'],
+                    'lastname'  => isset($name[1]) ? $name[1] : '',
+                    'email'     => $user['email'],
                 ];
 
                 $this->log('onUserAfterSave::mauticUser: ' . var_export($mauticUser, true), Log::INFO);
@@ -516,7 +523,7 @@ final class Mautic extends CMSPlugin
     /**
      * Try to guess the real user IP address
      *
-     * @return	string
+     * @return  string
      */
     public function getUserIP()
     {
@@ -526,7 +533,7 @@ final class Mautic extends CMSPlugin
     /**
      * Log helper function
      *
-     * @return	string
+     * @return  string
      */
     public function log($msg, $type)
     {
@@ -555,7 +562,7 @@ final class Mautic extends CMSPlugin
                     $atts[strtolower($m[3])] = stripcslashes($m[4]);
                 } elseif (!empty($m[5])) {
                     $atts[strtolower($m[5])] = stripcslashes($m[6]);
-                } elseif (isset($m[7]) && strlen($m[7])) {
+                } elseif (isset($m[7]) && \strlen($m[7])) {
                     $atts[] = stripcslashes($m[7]);
                 } elseif (isset($m[8])) {
                     $atts[] = stripcslashes($m[8]);
@@ -589,7 +596,7 @@ final class Mautic extends CMSPlugin
         $out = [];
 
         foreach ($pairs as $name => $default) {
-            if (array_key_exists($name, $atts)) {
+            if (\array_key_exists($name, $atts)) {
                 $out[$name] = $atts[$name];
             } else {
                 $out[$name] = $default;

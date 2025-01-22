@@ -78,7 +78,6 @@ $config
             'statement_indentation'          => ['stick_comment_to_next_continuous_control_statement' => true],
         ]
     )
-    ->setIndent("\t")
     ->setFinder($finder);
 
 return $config;

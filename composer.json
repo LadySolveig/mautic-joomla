@@ -19,8 +19,8 @@
         "friendsofphp/php-cs-fixer": "^3.52.1"
     },
     "scripts": {
-        "phpcs": "./vendor/bin/phpcs --standard=ruleset.xml --extensions=php -p -n ./src",
-		"phpcbf": "./vendor/bin/phpcbf --standard=ruleset.xml --extensions=php -n ./src",
+        "phpcs": "./vendor/bin/phpcs --standard=ruleset.xml --extensions=php -p -n ./plg_system_mautic",
+		"phpcbf": "./vendor/bin/phpcbf --standard=ruleset.xml --extensions=php -n ./plg_system_mautic",
         "csfixer": "./vendor/bin/php-cs-fixer --ansi --config=.php-cs-fixer.dist.php fix --dry-run -vvv --diff",
         "csfixer:fix": "./vendor/bin/php-cs-fixer --ansi --config=.php-cs-fixer.dist.php fix -vvv --diff",
         "cs": [
