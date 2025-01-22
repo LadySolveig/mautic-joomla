@@ -22,8 +22,8 @@
     "gzipper": "^8.2.0"
   },
   "scripts": {
-    "eslint:check": "eslint --no-error-on-unmatched-pattern --config .eslintrc.js --ext .js ./plg_system_mautic/",
-    "eslint:fix": "eslint --no-error-on-unmatched-pattern --fix --config .eslintrc.js --ext .js ./plg_system_mautic",
+    "eslint:check": "eslint --no-error-on-unmatched-pattern --config .eslintrc.mjs ./plg_system_mautic/",
+    "eslint:fix": "eslint --no-error-on-unmatched-pattern --fix --config .eslintrc.mjs ./plg_system_mautic",
     "prejs:minify": "fse-cli emptyDir --quiet ./$npm_package_config_build_media/js && fse-cli copy --keepExisting --quiet ./$npm_package_config_dev_media/js ./$npm_package_config_build_media/js",
     "js:minify": "esbuild ./$npm_package_config_build_media/js/**/*.js --minify --entry-names=[name].min --allow-overwrite --outdir=./$npm_package_config_build_media/js --analyze --color=true",
     "compile": "npm run js:minify",
