@@ -1,12 +1,12 @@
 <?php
 /**
  * @package     Mautic-Joomla.Plugin
- * @subpackage	System.Mautic
+ * @subpackage  System.Mautic
  *
- * @author		Mautic, Martina Scholz
- * @copyright	Copyright (C) 2014 - 2023 Mautic All Rights Reserved.
- * @license		http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
- * @link		http://www.mautic.org
+ * @author      Mautic
+ * @copyright   Copyright (C) 2014 - 2023 Mautic All Rights Reserved.
+ * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
+ * @link        http://www.mautic.org
  */
 
 // no direct access
@@ -30,7 +30,7 @@ class PlgSystemMauticInstallerScript extends InstallerScript
 	 * @var    string
 	 * @since  1.1
 	 */
-	protected $minimumJoomla = '4.0.0';
+	protected $minimumJoomla = '5.0.0';
 
 	/**
 	 * Minimum supported PHP version
@@ -38,7 +38,7 @@ class PlgSystemMauticInstallerScript extends InstallerScript
 	 * @var    string
 	 * @since  1.1
 	 */
-	protected $minimumPhp = '7.4.0';
+	protected $minimumPhp = '8.1.0';
 
 	/**
 	 * Function called after extension installation/update/removal procedure commences.
@@ -48,7 +48,7 @@ class PlgSystemMauticInstallerScript extends InstallerScript
 	 *
 	 * @return  boolean  True on success
 	 *
-	 * @since   4.2.0
+	 * @since   2.0.0
 	 */
 	public function postflight(string $type, InstallerAdapter $adapter)
 	{

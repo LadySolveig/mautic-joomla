@@ -3,7 +3,7 @@
     "description": "Plugin - System - Mautic for Joomla!",
     "type": "project",
     "require": {
-        "php": ">=8.0"
+        "php": ">=8.1"
     },
     "license": "GNU General Public License version 3 or later; http://www.gnu.org/licenses/gpl-3.0.html",
     "authors": [

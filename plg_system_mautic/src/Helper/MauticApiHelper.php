@@ -2,10 +2,10 @@
 /**
  * @package     Mautic-Joomla.Plugin
  * @subpackage  System.Mautic
- * @author	    Mautic, Martina Scholz
+ * @author      Mautic
  * @copyright   Copyright (C) 2014 - 2023 Mautic All Rights Reserved.
- * @license	    http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
- * @link	    http://www.mautic.org
+ * @license     http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
+ * @link        http://www.mautic.org
  */
 
  namespace Mautic\Plugin\System\Mautic\Helper;

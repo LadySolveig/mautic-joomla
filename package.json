@@ -1,8 +1,8 @@
 {
   "name": "plg_system_mautic",
   "description": "Joomla System Plugin for Mautic",
-  "version": "2.0.1",
-  "copyright": "Copyright (C) 2014 - 2024 Mautic All Rights Reserved.",
+  "version": "3.0.0",
+  "copyright": "Copyright (C) 2014 - 2025 Mautic All Rights Reserved.",
   "config": {
     "build": {
       "extension": "build/tmp",
@@ -16,10 +16,10 @@
   },
   "devDependencies": {
     "@atao60/fse-cli": "^0.1.9",
-    "esbuild": "^0.21.4",
+    "esbuild": "^0.24.2",
     "esbuild-plugin-compress": "^1.0.1",
-    "eslint": "^8.51.0",
-    "gzipper": "^7.2.0"
+    "eslint": "^9.18.0",
+    "gzipper": "^8.2.0"
   },
   "scripts": {
     "eslint:check": "eslint --no-error-on-unmatched-pattern --config .eslintrc.js --ext .js ./plg_system_mautic/",

@@ -2,7 +2,7 @@
 /**
  * @package    Mautic-Joomla.Plugin
  * @subpackage System.Mautic
- * @copyright  (C) 2024 Mautic, Martina Scholz, 
+ * @copyright  (C) 2024 Mautic
  *                 2021 Open Source Matters, Inc. <https://www.joomla.org>
  * @license    GNU General Public License version 3 or later; see LICENSE.txt
  */

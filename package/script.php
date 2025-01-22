@@ -17,8 +17,8 @@ use Joomla\CMS\Language\Text;
 
 class Pkg_MauticForJoomlaInstallerScript extends InstallerScript
 {
-	protected $minimumPhp    = '7.4.0';
-	protected $minimumJoomla = '4.0.0';
+	protected $minimumPhp    = '8.1.0';
+	protected $minimumJoomla = '5.0.0';
 
 	/**
 	 * Function to act prior to installation process begins
