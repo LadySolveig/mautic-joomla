@@ -3,17 +3,18 @@
 	<name>plg_system_mautic</name>
 	<author>Mautic</author>
 	<creationDate>2023-04</creationDate>
-	<copyright>Copyright 2014 - 2023 Mautic. All rights reserved.</copyright>
+	<copyright>Copyright 2014 - 2025 Mautic. All rights reserved.</copyright>
     <license>GNU/GPL Version 3 or later</license>
 	<authorEmail>extensions@mautic.org</authorEmail>
 	<authorUrl>www.mautic.org</authorUrl>
-	<version>2.0.0</version>
+	<version>3.0.0</version>
 	<description>PLG_SYSTEM_MAUTIC_XML_DESCRIPTION</description>
 	<namespace path="src">Mautic\Plugin\System\Mautic</namespace>
     <scriptfile>script.php</scriptfile>
 	<files>
-		<filename plugin="mautic">mautic.php</filename>
+		<folder plugin="mautic">services</folder>
 		<folder>src</folder>
+		<folder>language</folder>
 	</files>
 	<media folder="media" destination="plg_system_mautic">
 		<folder>js</folder>
@@ -26,7 +27,7 @@
 	</languages>
 	<config>
 		<fields name="params">
-			<fieldset name="basic" addfieldprefix="Joomla\Plugin\System\Mautic\Field">
+			<fieldset name="basic" addfieldprefix="Mautic\Plugin\System\Mautic\Field">
 				<field
 					type="spacer"
 					class="text"

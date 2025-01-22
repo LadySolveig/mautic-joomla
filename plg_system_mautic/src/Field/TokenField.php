@@ -4,8 +4,8 @@
  * @package     Mautic-Joomla.Plugin
  * @subpackage  System.Token
  *
- * @author		Mautic, Martina Scholz
- * @copyright   (C) 2023 Mautic, Martina Scholz
+ * @author      Mautic
+ * @copyright   (C) 2023 - 2025 Mautic
  * @license     GNU General Public License version 3 or later; see LICENSE.txt
 
  * @phpcs:disable PSR1.Classes.ClassDeclaration.MissingNamespace
@@ -18,7 +18,7 @@ use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Field\SubformField;
 use Joomla\CMS\Language\Text;
-use Joomla\Plugin\System\Mautic\Helper\MauticApiHelper;
+use Mautic\Plugin\System\Mautic\Helper\MauticApiHelper;
 use SimpleXMLElement;
 
 // phpcs:disable PSR1.Files.SideEffects
