@@ -171,7 +171,12 @@ class MauticApiHelper
     {
         try {
             $accessTokenData = new Registry(['token' => array_merge($auth->getAccessTokenData(), ['created' => Factory::getDate()->toSql()])]);
-            $this->log('refresh::accessTokenData: ' . var_export($accessTokenData, true), Log::INFO);
+            $logTokenData = clone $accessTokenData;
+            $logToken = $logTokenData->get('token');
+            $logToken->access_token = '**(hidden)**';
+            $logToken->refresh_token = '**(hidden)**';
+            $logTokenData->set('token', $logToken);
+            $this->log('refresh::accessTokenData: ' . var_export($logTokenData, true), Log::INFO);
             $this->params->merge($accessTokenData);
             $table = $this->table;
             $table->set('params', $this->params->toString());

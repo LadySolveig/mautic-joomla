@@ -26,7 +26,7 @@ use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Event\DispatcherInterface;
-use Joomla\Plugin\System\Mautic\Helper\MauticApiHelper;
+use Mautic\Plugin\System\Mautic\Helper\MauticApiHelper;
 use Joomla\Registry\Registry;
 use Joomla\Utilities\ArrayHelper;
 
@@ -404,7 +404,7 @@ final class Mautic extends CMSPlugin
      *
      *  @param \Joomla\CMS\Table\Table|null $table
      *
-     * @return Joomla\Plugin\System\Mautic\Helper\MauticApiHelper
+     * @return Mautic\Plugin\System\Mautic\Helper\MauticApiHelper
      */
     public function getMauticApiHelper($table = null)
     {
@@ -437,7 +437,12 @@ final class Mautic extends CMSPlugin
             if ($auth->validateAccessToken()) {
                 if ($auth->accessTokenUpdated()) {
                     $accessTokenData = new Registry(['token' => array_merge($auth->getAccessTokenData(), ['created' => Factory::getDate()->toSql()])]);
-                    $this->log('authorize::accessTokenData: ' . var_export($accessTokenData, true), Log::INFO);
+                    $logTokenData = clone $accessTokenData;
+                    $logToken = $logTokenData->get('token');
+                    $logToken->access_token = '**(hidden)**';
+                    $logToken->refresh_token = '**(hidden)**';
+                    $logTokenData->set('token', $logToken);
+                    $this->log('authorize::accessTokenData: ' . var_export($logTokenData, true), Log::INFO);
 
                     $this->params->merge($accessTokenData);
                     $table->set('params', $this->params->toString());
