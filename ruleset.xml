@@ -22,6 +22,10 @@
         </properties>
     </rule>
 
+    <rule ref="PSR1.Classes.ClassDeclaration.MissingNamespace">
+        <exclude-pattern type="relative">plg_system_mautic/script.php</exclude-pattern>
+    </rule>
+
     <!-- <rule ref="PSR2.Classes.PropertyDeclaration.Underscore">
     </rule> -->
 

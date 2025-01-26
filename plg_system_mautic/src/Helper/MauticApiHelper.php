@@ -61,7 +61,7 @@ class MauticApiHelper
     {
         $this->table  = $table;
         $this->table  = $this->getTable();
-        $this->params = new Registry($this->table->get('params'));
+        $this->params = new Registry($this->table->params ?? '{}');
         $this->app    = Factory::getApplication();
         Log::addLogger(['text_file' => 'plg_system_mautic.php'], Log::ALL, ['plg_system_mautic']);
     }
@@ -170,16 +170,16 @@ class MauticApiHelper
     public function storeRefreshedToken($auth)
     {
         try {
-            $accessTokenData = new Registry(['token' => array_merge($auth->getAccessTokenData(), ['created' => Factory::getDate()->toSql()])]);
-            $logTokenData = clone $accessTokenData;
-            $logToken = $logTokenData->get('token');
-            $logToken->access_token = '**(hidden)**';
+            $accessTokenData         = new Registry(['token' => array_merge($auth->getAccessTokenData(), ['created' => Factory::getDate()->toSql()])]);
+            $logTokenData            = clone $accessTokenData;
+            $logToken                = $logTokenData->get('token');
+            $logToken->access_token  = '**(hidden)**';
             $logToken->refresh_token = '**(hidden)**';
-            $logTokenData->set('token', $logToken);
+            $logTokenData->token     = $logToken;
             $this->log('refresh::accessTokenData: ' . var_export($logTokenData, true), Log::INFO);
             $this->params->merge($accessTokenData);
-            $table = $this->table;
-            $table->set('params', $this->params->toString());
+            $table         = $this->table;
+            $table->params = $this->params->toString();
             $table->store();
         } catch (\Exception $e) {
             if ($this->app->isClient('administrator')) {
@@ -194,7 +194,7 @@ class MauticApiHelper
      *
      * @return  string
      */
-    public function log($msg, $type)
+    private function log($msg, $type)
     {
         if ($this->params->get('log_on', 1)) {
             Log::add($msg, $type, 'plg_system_mautic');

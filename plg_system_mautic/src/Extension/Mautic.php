@@ -26,9 +26,9 @@ use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Event\DispatcherInterface;
-use Mautic\Plugin\System\Mautic\Helper\MauticApiHelper;
 use Joomla\Registry\Registry;
 use Joomla\Utilities\ArrayHelper;
+use Mautic\Plugin\System\Mautic\Helper\MauticApiHelper;
 
 /**
  *
@@ -343,8 +343,6 @@ final class Mautic extends CMSPlugin
 
         //get gentoken value and check
         if (Factory::getApplication()->getInput()->get('gentoken', null, 'int')) {
-            $lang = $this->app->getLanguage();
-            $lang->load('plg_system_mautic', JPATH_ADMINISTRATOR);
             $isRoot = $this->app->getIdentity()->authorise('core.admin');
             if ($isRoot) {
                 if (
@@ -352,7 +350,7 @@ final class Mautic extends CMSPlugin
                     !\array_key_exists('secret_key', $extension['params']) || !$extension['params']['secret_key']
                 ) {
                     $this->app->enqueueMessage(Text::_('PLG_SYSTEM_MAUTIC_AUTH_MISSING_DATA_ERROR'), 'warning');
-                    $this->log(Text::_('PLG_SYSTEM_MAUTIC_AUTH_MISSING_DATA_ERROR'), Log::ERROR);
+                    $this->log('Client-id and/or client-secret missing.', Log::ERROR);
                     return;
                 }
 
@@ -361,7 +359,7 @@ final class Mautic extends CMSPlugin
                 $this->authorize(true); // TODO
             } else {
                 $this->app->enqueueMessage(Text::_('PLG_SYSTEM_MAUTIC_ERROR_ONLY_ADMIN_CAN_AUTHORIZE'), 'warning');
-                $this->log(Text::_('PLG_SYSTEM_MAUTIC_ERROR_ONLY_ADMIN_CAN_AUTHORIZE'), Log::ERROR);
+                $this->log('Only admins can authorise Mautic API connections.', Log::ERROR);
             }
         }
     }
@@ -376,6 +374,7 @@ final class Mautic extends CMSPlugin
         if (!Factory::getApplication()->isClient('administrator')) {
             return;
         }
+
         $isRoot = Factory::getApplication()->getIdentity()->authorise('core.admin');
 
         if (!Factory::getApplication()->getUserState('mauticapi.data.oauth_gentoken', 0)) {
@@ -395,7 +394,7 @@ final class Mautic extends CMSPlugin
             }
         } else {
             Factory::getApplication()->enqueueMessage(Text::_('PLG_SYSTEM_MAUTIC_ERROR_ONLY_ADMIN_CAN_AUTHORIZE'), 'warning');
-            $this->log(Text::_('PLG_SYSTEM_MAUTIC_ERROR_ONLY_ADMIN_CAN_AUTHORIZE'), Log::ERROR);
+            $this->log('Only admins can authorise Mautic API connections.', Log::ERROR);
         }
     }
 
@@ -436,10 +435,10 @@ final class Mautic extends CMSPlugin
         try {
             if ($auth->validateAccessToken()) {
                 if ($auth->accessTokenUpdated()) {
-                    $accessTokenData = new Registry(['token' => array_merge($auth->getAccessTokenData(), ['created' => Factory::getDate()->toSql()])]);
-                    $logTokenData = clone $accessTokenData;
-                    $logToken = $logTokenData->get('token');
-                    $logToken->access_token = '**(hidden)**';
+                    $accessTokenData         = new Registry(['token' => array_merge($auth->getAccessTokenData(), ['created' => Factory::getDate()->toSql()])]);
+                    $logTokenData            = clone $accessTokenData;
+                    $logToken                = $logTokenData->get('token');
+                    $logToken->access_token  = '**(hidden)**';
                     $logToken->refresh_token = '**(hidden)**';
                     $logTokenData->set('token', $logToken);
                     $this->log('authorize::accessTokenData: ' . var_export($logTokenData, true), Log::INFO);
@@ -451,10 +450,10 @@ final class Mautic extends CMSPlugin
                     $this->app->enqueueMessage(Text::sprintf('PLG_SYSTEM_MAUTIC_REAUTHORIZE_SUCCESS', Text::_($extraWord)));
                 } else {
                     $this->app->enqueueMessage(Text::_('PLG_SYSTEM_MAUTIC_REAUTHORIZE_NOT_NEEDED'));
-                    $this->log(Text::_('PLG_SYSTEM_MAUTIC_REAUTHORIZE_NOT_NEEDED'), Log::INFO);
+                    $this->log('Mautic plugin does not need to authorise, it already is authorised.', Log::INFO);
                 }
             }
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->app->enqueueMessage($e->getMessage(), 'error');
             $this->log($e->getMessage(), Log::ERROR);
         }
@@ -517,7 +516,7 @@ final class Mautic extends CMSPlugin
                 } else {
                     $this->log('onUserAfterSave: Mautic lead was NOT successfully created. ' . var_export($result, true), Log::ERROR);
                 }
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 $this->log($e->getMessage(), Log::ERROR);
             }
         } else {
@@ -530,7 +529,7 @@ final class Mautic extends CMSPlugin
      *
      * @return  string
      */
-    public function getUserIP()
+    private function getUserIP()
     {
         return \Joomla\Utilities\IpHelper::getIp();
     }
@@ -540,7 +539,7 @@ final class Mautic extends CMSPlugin
      *
      * @return  string
      */
-    public function log($msg, $type)
+    private function log($msg, $type)
     {
         if ($this->params->get('log_on', 1)) {
             Log::add($msg, $type, 'plg_system_mautic');

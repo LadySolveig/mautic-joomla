@@ -202,6 +202,5 @@ XML;
             return $input;
         }
         return Text::_('PLG_SYSTEM_MAUTIC_AUTH_MISSING_DATA_ERROR');
-
     }
 }
